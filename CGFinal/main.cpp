@@ -26,19 +26,13 @@ using namespace irrklang;
 // Other Libs
 #include <SOIL.h>
 
-#include "functions.h"
 
+// our funcs and globals
+#include "functions.h"
 #include "globals.h"
 
 
-
-
-
-
 using namespace std;
-
-
-
 
 
 
@@ -115,7 +109,7 @@ int main()
 		glfwPollEvents();
 		do_movement();
 		rotate_parts();
-		do_animation();
+	
 
 		// Clear the colorbuffer
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
@@ -140,7 +134,7 @@ int main()
 	return 0;
 }
 
-#pragma region "User input"
+
 
 #pragma endregion
 

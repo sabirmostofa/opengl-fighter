@@ -58,7 +58,7 @@ glm::mat4 do_default_animation(glm::mat4 model, float part_x, float part_y, floa
 		//		model = glm::rotate(model, angle, glm::vec3(1.0f, 0.0f, 0.0f));
 		//	break;
 	case 6: // Right Upper Arm
-		angle = sin((GLfloat)glfwGetTime()) * 80.0f;
+		angle = sin((GLfloat)glfwGetTime()) * 100.0f;
 		if (angle < 50)
 			model = glm::rotate(model, angle, glm::vec3(1.0f, 0.0f, 1.0f));
 		else
@@ -114,125 +114,20 @@ void do_movement()
 
 glm::mat4 select_transformation(glm::mat4 model, float part_x, float part_y, float part_z, int id)
 {
-	if (glfwGetTime() >1 && glfwGetTime() < 10 && first_loop == false) {
+	if (glfwGetTime() < first_animation_time && first_loop == false) {
 
 		model = do_default_animation(model, part_x, part_y, part_z, id);
 
 		return model;
 	}
 
-	if (mode_1) // Keyboard mode:
+	if (true) // Keyboard mode:
 	{
 		model = glm::rotate(model, part_x, glm::vec3(1.0f, 0.0f, 0.0));
 		model = glm::rotate(model, part_y, glm::vec3(0.0f, 1.0f, 0.0));
 		model = glm::rotate(model, part_z, glm::vec3(0.0f, 0.0f, 1.0));
 	}
 
-	if (mode_2) // take snapshot:
-	{
-
-		model = glm::rotate(model, part_x, glm::vec3(1.0f, 0.0f, 0.0));
-		model = glm::rotate(model, part_y, glm::vec3(0.0f, 1.0f, 0.0));
-		model = glm::rotate(model, part_z, glm::vec3(0.0f, 0.0f, 1.0));
-		snapshot_buffer[snapshot_counter] = model;
-		std::cout << snapshot_counter;
-		++snapshot_counter;
-
-
-		if (snapshot_counter == 99) // Only save a couple of snapshots.
-			snapshot_counter = 0;
-
-		if (id == 10)
-			mode_2 = false;
-	}
-
-	if (mode_3) // play snapshots:
-	{
-		if (snapshot_counter == 99) // play snapshots in loop
-			snapshot_counter = 0;
-
-		model = snapshot_buffer[snapshot_counter];
-	}
-
-	if (mode_4) // predefined animation:
-	{
-		snapshot_counter = 0;
-		float angle = 0.0;
-
-		switch (id)
-		{
-		case 1: // Torso
-			angle = sin((GLfloat)glfwGetTime()) * 40.0f;
-			if (angle > 0)
-				model = glm::rotate(model, angle, glm::vec3(1.0f, 0.0f, 0.0f));
-			else
-				model = glm::rotate(model, 0.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-			break;
-		case 2: // Right Upper Leg
-			angle = sin((GLfloat)glfwGetTime()) * 80.0f;
-			if (angle < 50)
-				model = glm::rotate(model, angle, glm::vec3(1.0f, 0.0f, 0.0f));
-			else
-				model = glm::rotate(model, 50.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-			break;
-		case 3: // Right Lower Leg
-			angle = sin((GLfloat)glfwGetTime()) * -80.0f;
-			if (angle > 0)
-				model = glm::rotate(model, angle, glm::vec3(1.0f, 0.0f, 0.0f));
-			break;
-		case 4: // Left Upper Leg
-			angle = sin((GLfloat)glfwGetTime()) * 80.0f;
-			if (angle < 50)
-				model = glm::rotate(model, angle, glm::vec3(1.0f, 0.0f, 0.0f));
-			else
-				model = glm::rotate(model, 50.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-			break;
-		case 5: // Left Lower Leg
-			angle = sin((GLfloat)glfwGetTime()) * -80.0f;
-			if (angle > 0)
-				model = glm::rotate(model, angle, glm::vec3(1.0f, 0.0f, 0.0f));
-			break;
-		case 6: // Right Upper Arm
-			angle = sin((GLfloat)glfwGetTime()) * 80.0f;
-			if (angle < 50)
-				model = glm::rotate(model, angle, glm::vec3(0.0f, 1.0f, 1.0f));
-			else
-				model = glm::rotate(model, 50.0f, glm::vec3(0.0f, 1.0f, 1.0f));
-			break;
-		case 7: // Right Lower Arm
-			angle = sin((GLfloat)glfwGetTime()) * -80.0f;
-			if (angle > 0)
-				model = glm::rotate(model, angle, glm::vec3(1.0f, 0.0f, 1.0f));
-			break;
-		case 8: // Left Upper Arm
-			angle = -sin((GLfloat)glfwGetTime()) * -80.0f;
-			model = glm::rotate(model, 180.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-			if (angle < 50)
-				model = glm::rotate(model, angle, glm::vec3(0.0f, 1.0f, 1.0f));
-			else
-				model = glm::rotate(model, 50.0f, glm::vec3(0.0f, 1.0f, 1.0f));
-			break;
-		case 9: // Left Lower Arm
-			angle = -sin((GLfloat)glfwGetTime()) * 80.0f;
-			if (angle > 0)
-				model = glm::rotate(model, angle, glm::vec3(1.0f, 0.0f, 1.0f));
-			break;
-		case 10: // Head
-			angle = sin((GLfloat)glfwGetTime()) * -80.0f;
-			if (angle > -20)
-				model = glm::rotate(model, angle, glm::vec3(1.0f, 0.0f, 0.0f));
-			else
-				model = glm::rotate(model, -20.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-			break;
-
-		default:
-			model = glm::rotate(model, part_x, glm::vec3(1.0f, 0.0f, 0.0));
-			model = glm::rotate(model, part_y, glm::vec3(0.0f, 1.0f, 0.0));
-			model = glm::rotate(model, part_z, glm::vec3(0.0f, 0.0f, 1.0));
-			break;
-
-		}
-	}
 	return model;
 }
 
@@ -319,34 +214,6 @@ void rotate_parts()
 		rHead_z += rotation_speed;
 }
 
-void do_animation()
-{
-	if (keys[GLFW_KEY_7])
-	{
-		mode_1 = true;
-		mode_2 = false;
-		mode_3 = false;
-		mode_4 = false;
-	}
-
-
-
-	if (keys[GLFW_KEY_9])
-	{
-		mode_1 = false;
-		mode_2 = false;
-		mode_3 = true;
-		mode_4 = false;
-	}
-
-	if (keys[GLFW_KEY_0])
-	{
-		mode_1 = false;
-		mode_2 = false;
-		mode_3 = false;
-		mode_4 = true;
-	}
-}
 
 // Is called whenever a key is pressed/released via GLFW
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -355,21 +222,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 
-	switch (key)
-	{
-	case GLFW_KEY_8:
-		if (mode_1 == true)
-		{
-			mode_1 = false;
-			mode_2 = true;
-			mode_3 = false;
-			mode_4 = false;
-		}
-		break;
 
-	default:
-		break;
-	}
 
 	if (action == GLFW_PRESS)
 		keys[key] = true;
@@ -476,6 +329,7 @@ glm::mat4 draw_all_models(glm::mat4 model, Shader shader, Model model_torso, Mod
 	// Draw Head:
 	model = glm::translate(model, glm::vec3(0.0f, 1.1f, 0.0f));
 	model = select_transformation(model, rHead_x, rHead_y, rHead_z, 10);
+	model = glm::rotate(model, 180.0f, glm::vec3(0.0f, 1.0f, 0.0));
 	glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
 	model_head.Draw(shader);
 
@@ -488,13 +342,13 @@ void print_help() {
 	cout << "************* Press alt+f4 to exit" << endl;
 	cout << "" << endl;
 	cout << "" << endl;
-	cout << "Use Arrow keys to move camera or use mouse tor scrolll or move" << endl;
+	cout << "Use Arrow keys/Mouse to move/Zoom camera" << endl;
 
 	cout << "" << endl;
 	cout << "" << endl;
-	cout << "Oress J/K/L to roate around X y z axis" << endl;
+	cout << "press J/K/L to roate around X y z axis" << endl;
 	cout << "" << endl;
-	cout << "Pres Q WE RTZ UIOP to roate other parts" << endl;
+	cout << "Press QWE RTZ ASD FGH YXC VBN to roate other parts" << endl;
 	cout << "" << endl;
 
 }
