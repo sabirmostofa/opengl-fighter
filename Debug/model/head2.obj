@@ -1,6 +1,6 @@
 # Blender v2.78 (sub 0) OBJ File: 'head2.blend'
 # www.blender.org
-mtllib head2.mtl
+#mtllib head2.mtl
 o Sphere.005
 v -0.085240 0.025861 0.004571
 v -0.079619 0.008934 0.004571

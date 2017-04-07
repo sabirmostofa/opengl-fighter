@@ -27,7 +27,7 @@ glm::mat4 do_default_animation(glm::mat4 model, float part_x, float part_y, floa
 	case 1: // Torso
 
 		angle = sin((GLfloat)glfwGetTime()) * 40.0f;
-		cout << "doing animation default" << "  ID: " << angle << endl;
+	//	cout << "doing animation default" << "  ID: " << angle << endl;
 		if (angle > 0)
 			model = glm::rotate(model, angle, glm::vec3(1.0f, 0.0f, 0.0f));
 		else
@@ -224,7 +224,11 @@ glm::mat4 select_transformation(glm::mat4 model, float part_x, float part_y, flo
 			else
 				model = glm::rotate(model, -20.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 			break;
+
 		default:
+			model = glm::rotate(model, part_x, glm::vec3(1.0f, 0.0f, 0.0));
+			model = glm::rotate(model, part_y, glm::vec3(0.0f, 1.0f, 0.0));
+			model = glm::rotate(model, part_z, glm::vec3(0.0f, 0.0f, 1.0));
 			break;
 
 		}
@@ -476,4 +480,21 @@ glm::mat4 draw_all_models(glm::mat4 model, Shader shader, Model model_torso, Mod
 	model_head.Draw(shader);
 
 	return model;
+}
+
+void print_help() {
+
+	cout << "" << endl;
+	cout << "************* Press alt+f4 to exit" << endl;
+	cout << "" << endl;
+	cout << "" << endl;
+	cout << "Use Arrow keys to move camera or use mouse tor scrolll or move" << endl;
+
+	cout << "" << endl;
+	cout << "" << endl;
+	cout << "Oress J/K/L to roate around X y z axis" << endl;
+	cout << "" << endl;
+	cout << "Pres Q WE RTZ UIOP to roate other parts" << endl;
+	cout << "" << endl;
+
 }

@@ -81,3 +81,11 @@ extern bool first_loop;
 
 // Properties
 extern GLuint screenWidth, screenHeight;
+
+// models
+
+extern Model model_head;
+extern Model model_torso;
+extern Model model_arm;
+extern Model model_leg;
+extern Model model_limb;

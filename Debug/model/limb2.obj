@@ -1,6 +1,6 @@
 # Blender v2.78 (sub 0) OBJ File: 'limb2.blend'
 # www.blender.org
-mtllib limb2.mtl
+#mtllib limb2.mtl
 o Sphere
 v -0.020148 0.088015 -0.001414
 v -0.037216 0.082837 -0.001414

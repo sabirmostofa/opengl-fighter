@@ -1,4 +1,3 @@
-
 #pragma comment(lib, "irrKlang.lib") // link with irrKlang.dll
 
 // Std. Includes
@@ -44,24 +43,16 @@ using namespace std;
 
 
 
-
-
-
 // The MAIN function, from here we start our application and run our Game loop
 int main()
 {
 	
+	print_help();
 	
 	// Init GLFW
 	glfwInit();
 
-	// load sound
-	ISoundEngine *SoundEngine = createIrrKlangDevice();
-    SoundEngine->play2D("audio/ninja.wav", false);
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	//glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
 
 	GLFWwindow* window = glfwCreateWindow(screenWidth, screenHeight, "Ninja", nullptr, nullptr); 
 
@@ -86,7 +77,7 @@ int main()
 	glEnable(GL_DEPTH_TEST);
 
 	// Setup and compile our shaders
-	Shader shader("model_loading.vs", "model_loading.frag");
+	Shader shader("vertex_shader.vs", "frag_shader.frag");
 
 	// Load models
 
@@ -99,6 +90,10 @@ int main()
 	
 
 	// Game loop
+
+	// load sound
+	ISoundEngine *SoundEngine = createIrrKlangDevice();
+	SoundEngine->play2D("audio/ninja.wav", false);
 	
 	while (!glfwWindowShouldClose(window))
 	{
